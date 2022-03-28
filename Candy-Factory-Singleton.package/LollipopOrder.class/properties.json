@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "CandyOrder",
+	"category" : "Candy-Factory-Singleton",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "LollipopOrder",
+	"type" : "normal"
+}

@@ -1,0 +1,16 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Candy-Factory-Singleton",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"quantity",
+		"chocAmt",
+		"orderName",
+		"time"
+	],
+	"name" : "CandyOrder",
+	"type" : "normal"
+}
