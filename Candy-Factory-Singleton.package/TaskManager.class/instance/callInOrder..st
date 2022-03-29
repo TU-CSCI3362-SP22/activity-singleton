@@ -9,6 +9,5 @@ callInOrder: aString
 									 candyOrder := self createOrder: candyName amount: quantity.
 									 orders add: candyOrder].
 	self fillOrders: orders.
-	^ self
 
 		

@@ -6,8 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"chocMelter"
+		"supply"
 	],
-	"name" : "TaskManager",
+	"name" : "ChocolateMelter",
 	"type" : "normal"
 }
