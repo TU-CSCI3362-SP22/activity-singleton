@@ -1,6 +1,6 @@
 as yet unclassified
 createOrder: candy amount: quantity  
-	|order|
+	| order |
 	candy = 'lollipop' 
 		ifTrue: [ order := LollipopOrder withQuantity: quantity ]
 		ifFalse: [ 
