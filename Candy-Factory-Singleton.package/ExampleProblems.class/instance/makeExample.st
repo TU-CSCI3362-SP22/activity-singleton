@@ -1,7 +1,7 @@
 example
 makeExample
 	| taskMang1 taskMang2 chocMelter |
-	chocMelter := ChocolateMelter new.
+	chocMelter := ChocolateMelter current.
 	taskMang1 := TaskManager assign: chocMelter.
 	"have second taskmang use same chocolate melter"
 		
@@ -9,5 +9,6 @@ makeExample
 	taskMang1 callInOrder: '2-chocolate bar_3-chocolate peanut butter cup'.
 	taskMang1 webOrder: 'chocolate peanut butter cup' amount: 2.
 
+	
 	
 	
