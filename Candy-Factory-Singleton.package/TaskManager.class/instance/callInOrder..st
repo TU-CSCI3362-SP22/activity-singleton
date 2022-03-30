@@ -1,6 +1,6 @@
 as yet unclassified
 callInOrder: aString  
-	|tupList quantity candyOrder candyName splitList orders|
+	| tupList quantity candyOrder candyName splitList orders |
 	orders := OrderedCollection new.
 	splitList := aString splitOn: '_'.
 	splitList do: [:each |	 tupList:= each splitOn: '-'.
