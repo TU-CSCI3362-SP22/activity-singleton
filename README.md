@@ -6,8 +6,17 @@ Welcome to GEM's Candy Factory!
 Browse through the different classes to get a feel for how the Candy Factory operates. You'll notice that there is a super class, `CandyOrder`, that has three subclasses for the three different kinds of candy our factory produces: `LollipopOrder`, `ChocolateBarOrder`, `ChocPBCupOrder`. There is also a `TaskManager` that handles all of the orders that customers can submit either through a `callInOrder` or a `webOrder`.
 
 To get familiar with how GEM's Candy Factory operates copy and paste the following code into the playground. You can also try coming up with your own orders.
+*The syntax for `callInOrder` is funky, just go with it
 
-~insert tester code here~
+```
+| taskMang chocMelter |
+chocMelter := ChocolateMelter new.
+taskMang := TaskManager assign: chocMelter.
+
+taskMang webOrder: 'lollipop' amount: 5.
+taskMang callInOrder: '2-chocolate bar_3-chocolate peanut butter cup'.
+taskMang webOrder: 'chocolate peanut butter cup' amount: 2.
+```
 
 But there's a problem! The Candy Factory is processing orders with out regard for how much chocolate is being used by each order and we are constantly running out and messing up orders! Continute on to Phase 2 to fix this problem.
 
