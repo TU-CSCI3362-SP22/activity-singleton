@@ -5,13 +5,12 @@ Welcome to GEM's Candy Factory!
 ## Phase 1 - 
 Browse through the different classes to get a feel for how the Candy Factory operates. You'll notice that there is a super class, `CandyOrder`, that has three subclasses for the three different kinds of candy our factory produces: `LollipopOrder`, `ChocolateBarOrder`, `ChocPBCupOrder`. There is also a `TaskManager` that handles all of the orders that customers can submit either through a `callInOrder` or a `webOrder`.
 
-To get familiar with how GEM's Candy Factory operates copy and paste the following code into the playground. You can also try coming up with your own orders.
+To get familiar with how GEM's Candy Factory operates copy and paste the following code into the playground. You can also try coming up with your own orders. 
 *The syntax for `callInOrder` is funky, just go with it
 
-```
-| taskMang chocMelter |
-chocMelter := ChocolateMelter new.
-taskMang := TaskManager assign: chocMelter.
+```smalltalk
+| taskMang |
+taskMang := TaskManager new.
 
 taskMang webOrder: 'lollipop' amount: 5.
 taskMang callInOrder: '2-chocolate bar_3-chocolate peanut butter cup'.
@@ -34,6 +33,26 @@ Since every `TaskManager` needs to run orders through the `ChocolateMelter` we'l
 Lastly, we need to make sure that when orders are being filled that our `TaskManager` is first checking that there is enough chocolate. To do this you'll need to edit `fillOrders` to check each order to see if it can actually be filled now that we are monitoring chocolate amounts. (Hint: call `ChocolateManager`'s `use` method on each order and depending on whether or not the order can be filled either run the current transcript show code to process the order or display an error that that specific order couldn't be filled and the `ChocolateMelter` needs to be restocked by calling the `restockChoc` method in the playground and trying that order again)
 
 Once you have everything to do with `ChocolateMelter` incorporated, here are some orders to try and process. Notice that you may have to call the `restockChoc` method when chocolate runs out, but thats okay! We need to know when the factory is out of chocolate.
+
+```smalltalk
+| taskMang chocMelter |
+chocMelter := ChocolateMelter new.
+taskMang := TaskManager assign: chocMelter.
+
+taskMang webOrder: 'lollipop' amount: 5.
+taskMang callInOrder: '2-chocolate bar_3-chocolate peanut butter cup'.
+taskMang webOrder: 'chocolate peanut butter cup' amount: 2.
+```
+You should have gotten a transcript message saying there wasn't enough chocolate to make all those orders. That means the Chocolate Melter needs to be restocked.
+
+```smalltalk
+chocMelter := ChocolateMelter new.
+taskMang := TaskManager assign: chocMelter.
+chocMelter restockChoc.
+taskMang callInOrder: '3-chocolate peanut butter cup'.
+taskMang webOrder: 'chocolate peanut butter cup' amount: 2.
+```
+
 
 ** What would happen if two instances of `ChocolateMelter` got instantiated? If `TaskManager`'s were operating off of different instances of `ChocolateMelter` when there is really only one in the factory then they might not be getting an accurate read on how much chocolate there is and process an order that can't actually be completed resulting in a customer getting a chocolate-less chocolate bar... which would not be good. This is why the Singleton pattern is so great! It removes this possibility so that there can only ever be one instance of `ChocolateMelter`, ensuring all orders are processed correctly.
 
