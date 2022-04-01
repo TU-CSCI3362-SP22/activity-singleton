@@ -2,6 +2,12 @@
 
 Welcome to GEM's Candy Factory! We have a fully automated On Demand Candy factory. For the purposes of this activity, our robots are reading the transcript to decide what to do.
 
+**TODO**
+- [ ] Make the example methods
+- [ ] Consider having different constructors on the chocbot subclasses
+- [ ] Noodle if there's a way to have more than one method making chocbots.
+
+
 ## Phase 1 - 
 Browse through the different classes to get a feel for how the Candy Factory operates. You'll notice that there is a super class, `CandyOrder`, that has three subclasses for the three different kinds of candy our factory produces: `LollipopOrder`, `ChocolateBarOrder`, `ChocPBCupOrder`. There is also a `TaskManager` that handles all of the orders that customers can submit either through a `callInOrder` or a `webOrder`.
 
