@@ -1,13 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "Object",
+	"super" : "ChocBot",
 	"category" : "Candy-Factory-Singleton",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"supply"
-	],
-	"name" : "ChocolateMelter",
+	"instvars" : [ ],
+	"name" : "VoiceChocBot",
 	"type" : "normal"
 }
