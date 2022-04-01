@@ -1,6 +1,6 @@
 # Singleton Activity
 
-Welcome to GEM's Candy Factory! We have a fully automated On Demand Candy factory. For the purposes of this activity, our robots are reading the transcript to decide what to do.
+Welcome to GEM's Candy Factory! We have a fully automated On Demand Candy factory with self-replicating robots! For the purposes of this activity, our robots are reading the transcript to decide what to do.
 
 **TODO**
 - [ ] Make the example methods
