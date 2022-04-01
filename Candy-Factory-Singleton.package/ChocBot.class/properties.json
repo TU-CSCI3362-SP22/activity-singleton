@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Candy-Factory-Singleton",
+	"classinstvars" : [
+		"roboName"
+	],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"roboName"
+	],
+	"name" : "ChocBot",
+	"type" : "normal"
+}

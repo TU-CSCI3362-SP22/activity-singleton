@@ -1,4 +1,4 @@
-as yet unclassified
+constructor
 withQuantity: anInteger
 	| order |
 	order := self new.

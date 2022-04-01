@@ -4,15 +4,11 @@
 	"category" : "Candy-Factory-Singleton",
 	"classinstvars" : [ ],
 	"pools" : [ ],
-	"classvars" : [
-		"tmp"
-	],
+	"classvars" : [ ],
 	"instvars" : [
-		"quantity",
-		"chocAmt",
-		"orderName",
-		"time"
+		"webBot",
+		"talkyBots"
 	],
-	"name" : "CandyOrder",
+	"name" : "ChocStoreExample",
 	"type" : "normal"
 }
