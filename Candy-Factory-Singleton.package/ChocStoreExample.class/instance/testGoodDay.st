@@ -1,7 +1,6 @@
 initialization
 testGoodDay
    "a sequence of tests that should be okay"
-	Transcript open.
 	Transcript clear.
 	webBot webOrder: 'lollipop' amount: 2.
 	(voiceBots at: 1) callInOrder: '3-lollipop_2-chocolate bar'.

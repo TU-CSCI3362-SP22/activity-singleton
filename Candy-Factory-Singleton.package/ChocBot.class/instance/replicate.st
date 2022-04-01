@@ -1,4 +1,4 @@
 accessing
 replicate
-	^ (self class) withRoboName: (roboName, ' jr').
+	^ (self class) withRoboName: (roboName, ' jr') withMelter: chocMelter .
 	

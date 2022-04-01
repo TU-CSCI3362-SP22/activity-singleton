@@ -2,15 +2,12 @@
 	"commentStamp" : "",
 	"super" : "Object",
 	"category" : "Candy-Factory-Singleton",
-	"classinstvars" : [
-		"roboName"
-	],
+	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"roboName",
-		"chocMelter"
+		"supply"
 	],
-	"name" : "ChocBot",
+	"name" : "ChocolateMelter",
 	"type" : "normal"
 }
