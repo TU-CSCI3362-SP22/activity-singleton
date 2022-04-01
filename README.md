@@ -1,6 +1,12 @@
 # Singleton Activity
 
-Welcome to GEM's Candy Factory!
+Welcome to GEM's Candy Factory! We have a fully automated On Demand Candy factory. For the purposes of this activity, our robots are reading the transcript to decide what to do.
+
+**TODO**
+- [ ] Make the example methods
+- [ ] Consider having different constructors on the chocbot subclasses
+- [ ] Noodle if there's a way to have more than one method making chocbots.
+
 
 ## Phase 1 - 
 Browse through the different classes to get a feel for how the Candy Factory operates. You'll notice that there is a super class, `CandyOrder`, that has three subclasses for the three different kinds of candy our factory produces: `LollipopOrder`, `ChocolateBarOrder`, `ChocPBCupOrder`. There is also a `TaskManager` that handles all of the orders that customers can submit either through a `callInOrder` or a `webOrder`.
@@ -20,11 +26,13 @@ taskMang webOrder: 'chocolate peanut butter cup' amount: 2.
 But there's a problem! The Candy Factory is processing orders with out regard for how much chocolate is being used by each order and we are constantly running out and messing up orders! Continute on to Phase 2 to fix this problem.
 
 ## Phase 2 - 
-We need our Candy Factory to have a way to coordinate how much chocolate is used by each order so we don't run out. To do this we will make a new class called `ChocolateMelter` that is going to keep track of how much chocolate the facory has in stock at any given time. `ChocolateMelter` needs a `supply` instance variable to hold the current amount of chocolate in stock. At the beginning of the day the `ChocolateMelter` holds 20 units of chocolate. (hint: don't forget to generate accessors for supply!)
+We have a problem! Our chocolate boiler is running out of chocolate, and the robots are shipping empty candy packages! We need to track the chocolate in the melter so we don't issue invalid instructos to our robots.
 
-The `ChocolateMelter` is also going to need two methods: `use` to be called when an order is using chocolate and `restockChoc` for when there isn't enough chocolate to complete an order and the `ChocolateMelter` needs to make more. 
-   - `use` should take in an integer and return a boolean on if there is enough chocolate to complete the order. (Don't forget to update `supply` when chocolate is used)
-   - `restockChoc` should print to the transcript that it is restocking the chocolate melter and then increase the supply by 40 units 
+To help the Candy Factory  coordinate how much chocolate is used by each order, create a new class called `ChocolateMelter` that is going to keep track of how much chocolate the facory has in stock at any given time. `ChocolateMelter` needs a `supply` instance variable to hold the current amount of chocolate in stock. Don't forget to generate accessors for supply! At the beginning of the day the `ChocolateMelter` holds 20 units of chocolate.
+
+The `ChocolateMelter` is also going to need two methods: `use` to be called when an order is using chocolate and `restockChoc` to be called when the chocolate melter is refilled.
+   - `use` should take in an integer, and return true if there is enough chocolate to complete the order. Don't forget to update `supply` when chocolate is used!
+   - `restockChoc` should print to the transcript that it is restocking the chocolate melter and then increase the supply by 40 units. 
 
 Since every `TaskManager` needs to run orders through the `ChocolateMelter` we'll need to assign it the chocolate melter. To do that we'll need:
    - a `chocMelter` instance variable to hold the instance of `ChocolateMelter` (again, don't forget to generate accessors!)
