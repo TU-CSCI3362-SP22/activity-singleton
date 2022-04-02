@@ -2,7 +2,7 @@ initialization
 initialize
 	| vBots |
 	super initialize.
-	melter := ChocolateMelter new.
+	melter := ChocolateMelter getInstance.
 	webBot := WebChocBot withRoboName: 'G' withMelter: melter.
 	vBots := OrderedCollection new.
 	vBots add: (VoiceChocBot withRoboName: 'E' withMelter: melter);
