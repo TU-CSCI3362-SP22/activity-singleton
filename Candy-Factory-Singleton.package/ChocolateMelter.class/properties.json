@@ -2,11 +2,11 @@
 	"commentStamp" : "",
 	"super" : "Object",
 	"category" : "Candy-Factory-Singleton",
-	"classinstvars" : [
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [
 		"uniqueInstance"
 	],
-	"pools" : [ ],
-	"classvars" : [ ],
 	"instvars" : [
 		"supply"
 	],
