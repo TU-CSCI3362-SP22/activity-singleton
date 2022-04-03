@@ -1,44 +1,68 @@
-# Visitor Activity
+# Singleton Activity
 
-This activity is designed to be completed in groups of 1-3. Phase 1 involves familiarizing yourself with the existing code base and add features. In Phase 2 we will cover the visitor pattern in the abstract. In Phase 3 you will implement the visitor pattern.
+Welcome to GEM's Candy Factory! We have a fully automated On Demand Candy factory with self-replicating robots! For the purposes of this activity, our robots are reading the transcript to decide what to do.
 
 ## Phase 1 - 
-Browse to the DesignPatterns-Visitor package. I will explain the structure of the code, and you will then have 25 minutes to add the `annualCost` feature. You can create an example shop in the Playground with `Shop fidgetEmporium`.
+Browse through the different classes to get a feel for how the Candy Factory operates. You'll notice that there is a super class, `CandyOrder`, that has three subclasses for the three different kinds of candy our factory produces: `LollipopOrder`, `ChocolateBarOrder`, `ChocPBCupOrder`. There is also a `ChocBot` super class that has the factory's two types of robots in it: `WebChocBot` and `VoiceChocBot` which handle web orders and call in orders respectively. The robots also have the ability to replicate when passed multiple orders to keep the factory running at optimal speed. Browse through the robot's methods to get an understanding of how they work. Make sure to look at the class side for how a new robot gets created. (Also demonstrated in the store example)
 
-We need to know the annual cost of operating the machine shop. The annual cost for job machines is simply their maintenance cost. However, for utility machines we must factor both the maintenance cost and the amortized purchase price (i.e. purchase price divided by lifetime). There is no annual cost for tools.
-You will need to add the `annualCost` method to:
-- `Shop`
-- `Room`
-- `Equipment` (as an abstract method)
-- Appropriate subclasses of equipment.
+If you take a look at `ChocStoreExample` you'll see a `testGoodDay` method and a `testBusyDay` method for running the factory. To get familiar with how GEM's Candy Factory run the following code in the playground to launch the example chocolate store. 
+*The syntax for `callInOrder` is funky, just go with it
+
+```smalltalk
+ChocStoreExample new testGoodDay
+```
+
+```smalltalk
+ChocStoreExample new testBusyDay
+```
+
+But there's a problem! The Candy Factory is processing orders with out regard for how much chocolate is being used by each order and we are constantly running out and messing up orders! Continute on to Phase 2 to fix this problem.
 
 ## Phase 2 - 
-The visitor pattern is used to decouple operations that are performed over a wide range of objects from the class definitions of those objects. When adding a new property we want to evaluate (or operation we want to perform), the straightforward approach is to create a new method for shops, rooms, and each piece of equipment. By using dynamic dispatch, the correct version of the method gets called for the correct object. However, each property requires a new method for each class, and the evaluation of th eproperty is spread across the class hierarchy.
+We have a problem! Our chocolate melter is running out of chocolate, and the robots are shipping empty candy packages! We need to track the chocolate in the melter so we don't issue invalid instructions to our robots.
 
-To solve this, we will embody the operations or properties as individual objects called visitors. Each object in our hierarchy will accept visitors, inform the visitor to process itself using a `visit` method, and then send the visitor on to any composite objects. This means we require only a single `accept` method in each class. Dynamic dispatch will be used to invoke the correct `visit` method, based on the property we are evaluating.
+To help the Candy Factory  coordinate how much chocolate is used by each order, create a new class called `ChocolateMelter` that is going to keep track of how much chocolate the facory has in stock at any given time. `ChocolateMelter` needs a `supply` instance variable to hold the current amount of chocolate in stock. Don't forget to generate accessors for supply! At the beginning of the day the `ChocolateMelter` holds 40 units of chocolate.
 
-The visitor is then responsible for knowing how to process each object, based on it's class. In order to know the class of the object, we use *double dispatch* - objects of class `Foo` will invoke a specific `visitFoo` method. Each visitor will then implement `visitFoo` for every relevant class in the hierarchy. Picking the relevant classes requires some care.
+The `ChocolateMelter` is also going to need two methods: `use` to be called when an order is using chocolate and `restockChoc` to be called when the chocolate melter is refilled.
+   - `use` should take in an integer, and return true if there is enough chocolate to complete the order. Don't forget to update `supply` when chocolate is used!
+   - `restockChoc` should print to the transcript that it is restocking the chocolate melter and then increase the supply by 40 units. 
 
-Note that the number of `visit` methods can be quite large - and many visitors might only need to process specific ones. For example, a power visitor doesn't need to look at unpowered tools. One solution to this is an abstract visitor base class that implements "null methods" - methods which do nothing, but can be overridden if needed.
+Since every `ChocBot` needs to run orders through the `ChocolateMelter` we'll need to assign it the chocolate melter. To do that we'll need:
+   - a `chocMelter` instance variable to hold the instance of `ChocolateMelter` (again, don't forget to generate accessors!)
+   - edit the `ChotBot` class-side method `withRoboName` to also take in a `ChocolateMelter`
+
+Lastly, we need to make sure that when orders are being filled that our `ChocBot`s are first checking that there is enough chocolate. To do this you'll need to edit `fillOrders` to check each order to see if it can actually be filled now that we are monitoring chocolate amounts. (Hint: call `ChocolateMelter`'s `use` method on each order and depending on whether or not the order can be filled either run the code to process the order or display an error that that specific order couldn't be filled and the `ChocolateMelter` needs to be restocked by calling the `restockChoc` method in the example store method and trying that order again)
+
+Once you have everything to do with `ChocolateMelter` incorporated, run `testGoodDay` and `testBusyDay` again. Notice that you may have to call the `restockChoc` method when chocolate runs out, but thats okay! We need to know when the factory is out of chocolate.
+
+
+** What would happen if two instances of `ChocolateMelter` got instantiated? If the `ChocBot`s were operating off of different instances of `ChocolateMelter` when there is really only one in the factory then they might not be getting an accurate read on how much chocolate there is and process an order that can't actually be completed resulting in a customer getting a chocolate-less chocolate bar... which would not be good. This is why the Singleton pattern is so great! It removes this possibility so that there can only ever be one instance of `ChocolateMelter`, ensuring all orders are processed correctly.
 
 ## Phase 3 -
-Refactor your code to use the visitor pattern.
-1. Create an abstract `MachineShopVisitor` class with the following methods.
-   - `report` (fully abstract)
-   - `visitX:` for all important classes `X`. Begin with `visitRoom:`, `visitShop:`, and `visitEquipment:`. 
-   - `visitX:` can, by default, do nothing.
-1. You will need to add `accept: aVisitor` methods to `Room`, `Shop`, and `Equipment`.   
-   - For rooms and shops, you will both tell the visitor to `visitRoom`/`visitShop` and inform all components that they should accept the visitor.
-   - For equipment, you can just tell the visitor to `visitEquipment`.
-1. Create a `PowerVisitor` subclass of `MachineShopVisitor`.
-   - Store both idle power usage and maximum peak power usage. Initialize both to 0. 
-   - On `report` print both usages to the `Transcript`.
-   - Create the `visitX` methods necessary to compute appropriate values. If necessary, split `visitEquipment` by subclasses.
-   - Remove the corresponding methods from `Machine` (and subclasses), `Room`, and `Shop`. This will likely break the per-room power check.
-1. Add an `AnnualCostVisitor` subclass and repeat the above process.
-1. Time permitting, use a dictionary to associate the name of each room to the rooms total power usage. You will have to re-implement `powerRequired`!
+Refactor your code to use the singleton pattern.
 
-## Phase 4 -
-In this phase we will identify some limitations of the visitor pattern. One has already been afforded by the activity, the rest will be outlined in class.
+#### Part 1: Override make a `getInstance` method
+First, add a `uniqueInstance` class variable to `ChocolateMelter` to hold the one instance of `ChocolateMelter`.
+Next, create a class side method called `getInstance` to check if `uniqueInstance` already has an instance of `ChocolateMelter`. If it does, return it; otherwise, set `uniqueInstance` equal to a new instance of `ChocolateMelter` (this would be if it's being called for the first time).
 
-- The visitor pattern has to pick which classes in the hierarchy get named `visit` methods. Some properties might require specifics of subclasses, while others might operate better over superclasses. It is possible to make the visit methods for subclasses default to the superclass implementation. For example, in the abstract Visitor base class, we can implement of `visitJobMachine: aJobMachine` as `self visitMachine: aJobMachine`. Then subclasses can override either both `visitJobMachine` and `visitUtility`, or just `visitMachine.` This approach introduces a lot of choice, and therefore complexity and the chance for bugs, when implementing new visitors - a problem for a pattern that is focused around implementing new visitors.
+Now replace the places where you were origianlly sending ChocolateMelter around with `ChocolateMelter getInstance`. This insures that it will always be the one instance of `ChocolateMelter` getting used throughout the code.
+
+#### Part 2: add an error to `new`
+Now that `getInstance` makes it so that only one instance of `ChocolateMelter` is used we need to make sure we can't call new on `ChocolateMelter`. To do this make a class side method called `new` to override the original new method and have it return this:
+
+```smalltalk
+^ self error: 'Class ', self name, ' can only have one instance. To retrieve it, send "ChocolateMelter getInstance"'
+```
+
+Now if you call `new` on `ChocolateMelter` that error message will pop up preventing any instance but the one we want of `ChocolateMelter` from ever getting created.
+You'll need to replace your call to `new` in `getInstance` to make the method look like this:
+
+```smalltalk
+uniqueInstance isNil
+		ifTrue: [ uniqueInstance := self basicNew initialize].
+		^ uniqueInstance 
+```
+When you run the test methods you'll see that everything still runs the same but now with the added protetion of hetting chocolate melters mixed up.
+
+## Takeaways -
+The key takeaway from the Singleton Pattern is that it is best used when there needs to be some class that should only ever have one instance in order to keep information consistent. This is done through overriding the public constructor of that class and creating a private constructor that checks if there is already an instance created.
