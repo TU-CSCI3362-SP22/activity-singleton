@@ -7,7 +7,7 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"webBot",
-		"talkyBots"
+		"voiceBots"
 	],
 	"name" : "ChocStoreExample",
 	"type" : "normal"

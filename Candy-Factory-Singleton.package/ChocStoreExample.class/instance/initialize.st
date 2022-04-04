@@ -1,4 +1,7 @@
 initialization
 initialize
 	super initialize.
-	"make one web bot and a colleciton of two talky bots and put them in the variables with roboName:"
+	webBot := WebChocBot withRoboName: 'Skynet'.
+	voiceBots := OrderedCollection 
+						with: (VoiceChocBot withRoboName: 'JohnnyFive')
+						with: (VoiceChocBot withRoboName: 'M').
